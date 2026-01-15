@@ -2,9 +2,8 @@
   "name": "d1fitness-nf-service",
   "version": "1.0.0",
   "description": "Sistema de Envio de Nota Fiscal por Email",
-  "main": "index.js",
+  "main": "backend/src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.js"
   },
   "type": "module",
