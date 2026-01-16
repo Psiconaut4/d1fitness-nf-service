@@ -3,6 +3,7 @@ import cors from 'cors';
 
 import salesRoutes from './routes/sales.routes.js';
 import healthRoutes from './routes/health.routes.js';
+import nfRoutes from './routes/nf.routes.js';
 
 const app = express();
 
