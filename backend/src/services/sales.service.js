@@ -6,3 +6,8 @@ export async function getSales() {
   const response = await axios.get(`${API_D1_URL}/listarVendas`);
   return response.data;
 }
+
+export async function getSaleById(saleId) {
+    const response = await axios.get(`${API_D1_URL}/Venda/${saleId}`);
+    return response.data;
+}
