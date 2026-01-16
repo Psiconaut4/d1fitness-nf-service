@@ -11,5 +11,6 @@ app.use(express.json());
 
 app.use('/sales', salesRoutes);
 app.use('/health', healthRoutes);
+app.use('/nf', nfRoutes);
 
 export default app;
