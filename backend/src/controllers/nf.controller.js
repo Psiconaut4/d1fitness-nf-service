@@ -1,4 +1,5 @@
 import { getNFById } from '../services/nf.service.js';
+import { validateXML } from '../utils/xmlValidator.js';
 
 export const getNF = async (req, res) => {
   const { invoiceId } = req.params;
@@ -23,6 +24,7 @@ export const getNF = async (req, res) => {
         message: 'XML da nota fiscal não disponível'
       });
     }
+    validateXML(xml);
 
     return res.json({
       invoiceId: notaFiscal.Codigo,
@@ -33,8 +35,8 @@ export const getNF = async (req, res) => {
   } catch (error) {
     console.error('Erro ao buscar NF:', error.message);
 
-    return res.status(500).json({
-      message: 'Erro ao buscar nota fiscal'
+    return res.status(422).json({
+      message: error.message || 'Erro ao validar XML da nota fiscal'
     });
   }
 };
