@@ -3,7 +3,7 @@ import { listSales, getSale } from '../controllers/sales.controller.js';
 
 const router = Router();
 
-router.get('/', listSales);
-router.get('/:saleId', getSale);
+router.get('/sales', listSales);
+router.get('/sales/:saleId', getSale);
 
 export default router;

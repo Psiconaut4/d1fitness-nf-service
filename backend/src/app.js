@@ -11,9 +11,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/sales', salesRoutes);
-app.use('/health', healthRoutes);
-app.use('/nf', nfRoutes);
+app.use('/api', salesRoutes);
+app.use('/api', healthRoutes);
+app.use('/api', nfRoutes);
 app.use('/api', danfeRoutes);
 
 export default app;

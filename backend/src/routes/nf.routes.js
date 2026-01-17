@@ -3,6 +3,6 @@ import { getNF } from '../controllers/nf.controller.js';
 
 const router = Router();
 
-router.get('/:invoiceId', getNF);
+router.get('/nf/:invoiceId', getNF);
 
 export default router;
