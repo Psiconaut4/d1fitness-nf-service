@@ -15,7 +15,7 @@ export async function downloadDanfe(req, res) {
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader(
             'Content-Disposition',
-            `attachment; filename=danfe-${invoiceId}.pdf`
+            `attachment; filename=DANFE_${invoiceId}.pdf`
         );
 
         return res.send(pdfBuffer);
