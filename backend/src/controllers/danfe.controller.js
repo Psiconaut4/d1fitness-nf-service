@@ -2,23 +2,27 @@ import { generateDanfeByInvoiceCode } from '../services/danfe.service.js';
 
 export async function downloadDanfe(req, res) {
     try {
-        const { invoiceID } = req.params;
+        const { invoiceId } = req.params;
 
-        if (!invoiceID) {
+        if (!invoiceId) {
             return res.status(400).json({
-                error: 'invoiceID é obrigatório'
+                error: 'invoiceId é obrigatório'
             });
         }
-        const pdfBuffer = await generateDanfeByInvoiceCode(invoiceID);
+
+        const pdfBuffer = await generateDanfeByInvoiceCode(invoiceId);
 
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader(
             'Content-Disposition',
-            `attachment; filename=danfe-${invoiceID}.pdf`
+            `attachment; filename=danfe-${invoiceId}.pdf`
         );
+
         return res.send(pdfBuffer);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ error: 'Erro ao gerar DANFE' });
+        return res.status(500).json({
+            error: 'Erro ao gerar DANFE'
+        });
     }
 }
