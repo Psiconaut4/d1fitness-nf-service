@@ -7,7 +7,5 @@ export function downloadDanfe(invoiceId) {
 }
 
 export function sendDanfeByEmail(invoiceId, email) {
-  return http.post(`/danfe/${invoiceId}/email`, {
-    email,
-  })
+  return http.post(`/danfe/${invoiceId}/email`, email)
 }
