@@ -8,36 +8,40 @@ defineProps({
   },
 })
 </script>
+
 <template>
   <v-card>
-    <v-card-title>Vendas</v-card-title>
+    <v-card-title class="text-h6">
+      Vendas
+    </v-card-title>
+
+    <v-divider />
 
     <v-table>
       <thead>
         <tr>
           <th>Código da Venda</th>
-          <th>Ações</th>
+          <th class="text-right">Ações</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr v-for="sale in sales" :key="sale">
-          <td>
-            <RouterLink
-              :to="{
-                name: 'sale-details',
-                params: { saleId: sale }
-              }"
-            >
-              {{ sale }}
-            </RouterLink>
+        <tr v-for="saleId in sales" :key="saleId">
+          <td class="font-weight-medium">
+            #{{ saleId }}
           </td>
-          <td>
+
+          <td class="text-right">
             <v-btn
               size="small"
               color="primary"
+              variant="outlined"
+              :to="{
+                name: 'sale-details',
+                params: { saleId }
+              }"
             >
-              Enviar NF
+              Ver detalhes
             </v-btn>
           </td>
         </tr>
@@ -45,4 +49,3 @@ defineProps({
     </v-table>
   </v-card>
 </template>
-
