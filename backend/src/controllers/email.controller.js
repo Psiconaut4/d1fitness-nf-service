@@ -14,7 +14,7 @@ export async function sendDanfeEmail(req, res) {
         await sendDanfeByEmail(invoiceId, email);
 
         return res.json({
-            message: 'DANFE enviada por email com sucesso'
+            message: 'DANFE e XML enviados por email com sucesso'
         });
     } catch (error) {
         console.error(error);
