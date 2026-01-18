@@ -88,7 +88,7 @@ npm install
 
 ## 3 Criar .env com a URL do backend
 ```env
-VITE_API_URL=http://localhost:3000/api
+VITE_API_BASE_URL=http://localhost:3000/api
 ```
 
 ## 4 Rodar o frontend:
