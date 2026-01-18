@@ -1,6 +1,5 @@
 import { sendDanfeByEmail } from '../services/email.service.js';
 
-
 export async function sendDanfeEmail(req, res) {
     try {
         const { invoiceId } = req.params;
