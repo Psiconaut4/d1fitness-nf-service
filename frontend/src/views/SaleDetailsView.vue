@@ -1,34 +1,41 @@
 <template>
   <v-container>
+
+    <!-- Voltar -->
     <v-btn
       variant="text"
-      @click="$router.back()"
       class="mb-4"
+      @click="$router.back()"
     >
       Voltar
     </v-btn>
 
+    <!-- Loading -->
     <v-progress-linear
       v-if="loading"
       indeterminate
       class="mb-4"
     />
 
+    <!-- Erro -->
     <v-alert
       v-if="error"
       type="error"
+      class="mb-4"
     >
       {{ error }}
     </v-alert>
 
+    <!-- Sucesso -->
     <v-alert
-        v-if="success"
-        type="success"
-        class="mb-4"
+      v-if="success"
+      type="success"
+      class="mb-4"
     >
-        {{ success }}
+      {{ success }}
     </v-alert>
 
+    <!-- Card da venda -->
     <v-card v-if="sale">
       <v-card-title>
         Venda #{{ sale.codigoVenda }}
@@ -44,46 +51,24 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="primary" @click="showModal = true">
+        <v-btn
+          color="primary"
+          @click="showModal = true"
+        >
           Enviar DANFE por email
         </v-btn>
       </v-card-actions>
     </v-card>
 
-    <v-dialog v-model="showModal" max-width="400">
-        <v-card>
-            <v-card-title>
-                Enviar DANFE
-            </v-card-title>
-            <v-card-text>
-                <v-text-field
-                v-model="email"
-                label="Email"
-                type="email"
-                required
-                />
-            </v-card-text>
+    <!-- Modal -->
+    <SendDanfeModal
+      v-if="sale"
+      v-model="showModal"
+      :invoice-id="sale.codigoNotaFiscal"
+      :default-email="sale.entregaEmail"
+      @success="handleSuccess"
+    />
 
-            <v-card-actions>
-                <v-spacer />
-
-                <v-btn
-                variant="text"
-                @click="showModal = false"
-                >
-                Cancelar
-                </v-btn>
-
-                <v-btn
-                color="primary"
-                :loading="sending"
-                @click="handleSendDanfe"
-                >
-                Enviar
-                </v-btn>
-            </v-card-actions>
-        </v-card>
-    </v-dialog>
   </v-container>
 </template>
 
@@ -91,24 +76,21 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSaleById } from '../api/sales.api'
-import { sendDanfeByEmail } from '../api/danfe.api'
+import SendDanfeModal from '../components/SendDanfeModal.vue'
 
 const route = useRoute()
 
-const showModal = ref(false)
-const email = ref('')
-const sending = ref(false)
-const success = ref(null)
 const sale = ref(null)
 const loading = ref(true)
 const error = ref(null)
+const success = ref(null)
+const showModal = ref(false)
 
 onMounted(async () => {
   try {
     const saleId = route.params.saleId
     const { data } = await getSaleById(saleId)
     sale.value = data
-    email.value = data.entregaEmail
   } catch (err) {
     error.value = 'Erro ao carregar detalhes da venda'
   } finally {
@@ -116,27 +98,7 @@ onMounted(async () => {
   }
 })
 
-async function handleSendDanfe() {
-    if (!email.value) {
-        error.value = 'Por favor, insira um email válido.'
-        return
-    }
-
-    sending.value = true
-    error.value = null
-    success.value = null
-
-    try {
-        await sendDanfeByEmail(sale.value.codigoNotaFiscal, {
-            email: email.value,
-        })
-
-        success.value = 'DANFE enviado com sucesso!'
-        showModal.value = false
-    } catch (err) {
-        error.value = 'Erro ao enviar DANFE. Tente novamente.'
-    } finally {
-        sending.value = false
-    }
+function handleSuccess() {
+  success.value = 'DANFE enviada com sucesso'
 }
 </script>

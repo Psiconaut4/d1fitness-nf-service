@@ -28,5 +28,11 @@
     "email": "gabriel32@example.com",
     "status": "SUCCESS",
     "sentAt": "2026-01-18T10:38:21.232Z"
+  },
+  {
+    "invoiceId": "528881",
+    "email": "gabriel32@example.com",
+    "status": "SUCCESS",
+    "sentAt": "2026-01-18T11:45:30.746Z"
   }
 ]
