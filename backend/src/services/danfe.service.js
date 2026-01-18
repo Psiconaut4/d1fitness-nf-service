@@ -20,5 +20,8 @@ export async function generateDanfeByInvoiceCode(invoiceId) {
 
     const pdfBuffer = await generateDanfe(xml);
 
-    return pdfBuffer;
+    return {
+        pdfBuffer,
+        xml
+    }
 }

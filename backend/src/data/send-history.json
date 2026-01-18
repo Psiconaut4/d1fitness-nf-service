@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "invoiceId": "527671",
+    "email": "santosclarice@example.net",
+    "status": "SUCCESS",
+    "sentAt": "2026-01-18T13:04:58.658Z"
+  },
+  {
+    "invoiceId": "527671",
+    "email": "teste365@teste.com",
+    "status": "ERROR",
+    "sentAt": "2026-01-18T13:46:27.123Z"
+  },
+  {
+    "invoiceId": "527671",
+    "email": "teste365@teste.com",
+    "status": "ERROR",
+    "sentAt": "2026-01-18T13:50:30.981Z"
+  },
+  {
+    "invoiceId": "527671",
+    "email": "teste365@teste.com",
+    "status": "ERROR",
+    "sentAt": "2026-01-18T13:53:21.832Z"
+  },
+  {
+    "invoiceId": "527671",
+    "email": "teste365@teste.com",
+    "status": "SUCCESS",
+    "sentAt": "2026-01-18T13:57:31.943Z"
+  },
+  {
+    "invoiceId": "527671",
+    "email": "teste365@teste.com",
+    "status": "SUCCESS",
+    "sentAt": "2026-01-18T14:00:59.562Z"
+  }
+]
