@@ -21,6 +21,14 @@
       {{ error }}
     </v-alert>
 
+    <v-alert
+        v-if="success"
+        type="success"
+        class="mb-4"
+    >
+        {{ success }}
+    </v-alert>
+
     <v-card v-if="sale">
       <v-card-title>
         Venda #{{ sale.codigoVenda }}
