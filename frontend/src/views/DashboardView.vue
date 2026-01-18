@@ -5,6 +5,12 @@
       indeterminate
       class="mb-4"
     />
+
+    <v-btn to="/history" variant="text">
+    Histórico
+    </v-btn>
+
+
     <SalesTable :sales="sales" />
 
     <v-alert
