@@ -1,3 +1,13 @@
+<script setup>
+import { RouterLink } from 'vue-router'
+
+defineProps({
+  sales: {
+    type: Array,
+    required: true,
+  },
+})
+</script>
 <template>
   <v-card>
     <v-card-title>Vendas</v-card-title>
@@ -12,7 +22,16 @@
 
       <tbody>
         <tr v-for="sale in sales" :key="sale">
-          <td>{{ sale }}</td>
+          <td>
+            <RouterLink
+              :to="{
+                name: 'sale-details',
+                params: { saleId: sale }
+              }"
+            >
+              {{ sale }}
+            </RouterLink>
+          </td>
           <td>
             <v-btn
               size="small"
@@ -28,11 +47,3 @@
   </v-card>
 </template>
 
-<script setup>
-defineProps({
-  sales: {
-    type: Array,
-    required: true,
-  },
-})
-</script>
