@@ -1,57 +1,143 @@
 <template>
-  <v-container>
-    <h2 class="mb-4">Histórico de Envios</h2>
+  <v-container class="py-4">
 
-    <v-progress-linear v-if="loading" indeterminate />
+    <!-- Header da tela -->
+    <!--
+      Cabeçalho com ação de retorno e título.
+      Mantém o mesmo padrão visual das demais telas do sistema.
+    -->
+    <div class="d-flex align-center mb-6">
+      <v-btn
+        variant="text"
+        icon="mdi-arrow-left"
+        @click="$router.back()"
+      />
+      <h2 class="text-h6 font-weight-medium ml-3">
+        Histórico de Envios
+      </h2>
+    </div>
 
-    <v-btn
-      variant="text"
-      @click="$router.back()"
+    <!-- Indicador de carregamento -->
+    <!--
+      Exibido enquanto os dados do histórico são carregados da API.
+      UX: evita sensação de tela travada.
+    -->
+    <v-progress-linear
+      v-if="loading"
+      indeterminate
+      color="primary"
+      rounded
+      class="mb-4"
+    />
+
+    <!-- Alerta de erro -->
+    <!--
+      Feedback visual claro em caso de falha na requisição.
+    -->
+    <v-alert
+      v-if="error"
+      type="error"
+      variant="tonal"
       class="mb-4"
     >
-      Voltar
-    </v-btn>
-
-    <v-alert v-if="error" type="error">
       {{ error }}
     </v-alert>
 
-    <v-table v-if="history.length">
-      <thead>
-        <tr>
-          <th>NF</th>
-          <th>Email</th>
-          <th>Status</th>
-          <th>Data</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in history" :key="item.sentAt">
-          <td>{{ item.invoiceId }}</td>
-          <td>{{ item.email }}</td>
-          <td>
-            <v-chip
-              :color="item.status === 'SUCCESS' ? 'green' : 'red'"
-              size="small"
+    <!-- Card contendo a tabela de histórico -->
+    <!--
+      Uso de card para delimitar visualmente o conteúdo principal da tela.
+    -->
+    <v-card
+      v-if="history.length"
+      elevation="2"
+      rounded="lg"
+    >
+      <v-card-text class="pa-0">
+
+        <!-- Tabela de histórico -->
+        <!--
+          Lista cronológica dos envios de DANFE.
+          Mantém estrutura simples e direta para fácil leitura.
+        -->
+        <v-table>
+          <thead>
+            <tr>
+              <th class="text-left">NF</th>
+              <th class="text-left">E-mail</th>
+              <th class="text-left">Status</th>
+              <th class="text-left">Data de Envio</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              v-for="item in history"
+              :key="item.sentAt"
             >
-              {{ item.status }}
-            </v-chip>
-          </td>
-          <td>{{ new Date(item.sentAt).toLocaleString() }}</td>
-        </tr>
-      </tbody>
-    </v-table>
+              <td>{{ item.invoiceId }}</td>
+
+              <td>{{ item.email }}</td>
+
+              <td>
+                <!--
+                  Status representado por chip para melhor escaneabilidade.
+                  Cores indicam sucesso ou falha no envio.
+                -->
+                <v-chip
+                  size="small"
+                  variant="tonal"
+                  :color="item.status === 'SUCCESS' ? 'success' : 'error'"
+                >
+                  {{ item.status }}
+                </v-chip>
+              </td>
+
+              <td>
+                {{ new Date(item.sentAt).toLocaleString() }}
+              </td>
+            </tr>
+          </tbody>
+        </v-table>
+
+      </v-card-text>
+    </v-card>
+
+    <!-- Estado vazio -->
+    <!--
+      Caso não existam registros no histórico.
+      UX: evita tela em branco e comunica claramente ao usuário.
+    -->
+    <v-alert
+      v-if="!loading && !history.length && !error"
+      type="info"
+      variant="tonal"
+    >
+      Nenhum envio registrado até o momento.
+    </v-alert>
+
   </v-container>
 </template>
 
 <script setup>
+/*
+  Importações da Composition API e da camada de API.
+*/
 import { ref, onMounted } from 'vue'
 import { getSendHistory } from '../api/history.api'
 
+/*
+  Estados reativos da tela:
+  - history: lista de envios
+  - loading: controle de carregamento
+  - error: mensagem de erro
+*/
 const history = ref([])
 const loading = ref(true)
 const error = ref(null)
 
+/*
+  Carrega o histórico de envios assim que a tela é montada.
+*/
 onMounted(async () => {
   try {
     const { data } = await getSendHistory()
