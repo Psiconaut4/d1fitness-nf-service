@@ -22,15 +22,18 @@ export async function getSale(req, res) {
         if (!response?.success || !response?.venda) {
             return res.status(404).json({ message : 'Venda não encontrada' });
         }
-        const { Codigo, CodigoNotaFiscal, ClienteNome, DataVenda, ValorTotal, DescricaoStatus } = response.venda;
+        const venda = response.venda;
 
         res.json({
-            codigoVenda: Codigo,
-            clienteNome: ClienteNome,
-            dataVenda: DataVenda,
-            valorTotal: ValorTotal,
-            descricaoStatus: DescricaoStatus,
-            codigoNotaFiscal: CodigoNotaFiscal
+        codigoVenda: venda.Codigo,
+        codigoNotaFiscal: venda.CodigoNotaFiscal,
+        clienteNome: venda.ClienteNome,
+        dataVenda: venda.DataVenda,
+        valorTotal: venda.ValorTotal,
+        descricaoStatus: venda.DescricaoStatus,
+        entregaEmail: venda.EntregaEmail,
+        clienteDocumento: venda.ClienteDocumento,
+        clienteEndereco: venda.ClienteEndereco
         });
     } catch (error) {
         console.error('Erro ao buscar venda:', error.response?.data || error.message);
