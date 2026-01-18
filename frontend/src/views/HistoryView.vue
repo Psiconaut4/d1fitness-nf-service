@@ -2,10 +2,7 @@
   <v-container class="py-4">
 
     <!-- Header da tela -->
-    <!--
-      Cabeçalho com ação de retorno e título.
-      Mantém o mesmo padrão visual das demais telas do sistema.
-    -->
+    
     <div class="d-flex align-center mb-6">
       <v-btn
         variant="text"
@@ -18,10 +15,7 @@
     </div>
 
     <!-- Indicador de carregamento -->
-    <!--
-      Exibido enquanto os dados do histórico são carregados da API.
-      UX: evita sensação de tela travada.
-    -->
+   
     <v-progress-linear
       v-if="loading"
       indeterminate
@@ -31,9 +25,7 @@
     />
 
     <!-- Alerta de erro -->
-    <!--
-      Feedback visual claro em caso de falha na requisição.
-    -->
+    
     <v-alert
       v-if="error"
       type="error"
@@ -44,9 +36,6 @@
     </v-alert>
 
     <!-- Card contendo a tabela de histórico -->
-    <!--
-      Uso de card para delimitar visualmente o conteúdo principal da tela.
-    -->
     <v-card
       v-if="history.length"
       elevation="2"
@@ -55,10 +44,6 @@
       <v-card-text class="pa-0">
 
         <!-- Tabela de histórico -->
-        <!--
-          Lista cronológica dos envios de DANFE.
-          Mantém estrutura simples e direta para fácil leitura.
-        -->
         <v-table>
           <thead>
             <tr>

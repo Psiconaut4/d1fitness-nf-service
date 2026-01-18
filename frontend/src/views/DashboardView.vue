@@ -1,20 +1,13 @@
 <template>
   <v-container class="py-4">
 
-    <!-- Header do Dashboard -->
-    <!--
-      Cabeçalho principal da aplicação.
-      Exibe o título da tela e ações de navegação secundárias.
-    -->
+    <!-- Header -->
     <div class="d-flex align-center justify-space-between mb-6">
       <h2 class="text-h6 font-weight-medium">
         Dashboard de Vendas
       </h2>
 
-      <!-- Acesso rápido ao histórico -->
-      <!--
-        Ação secundária, posicionada no header para fácil acesso.
-      -->
+      <!-- Botão histórico -->
       <v-btn
         to="/history"
         variant="text"
@@ -24,10 +17,18 @@
       </v-btn>
     </div>
 
-    <!-- Indicador de carregamento -->
-    <!--
-      Exibido enquanto a lista de vendas está sendo carregada.
-    -->
+    <!-- Card total de vendas -->
+    <v-row dense class="mb-6" align="stretch">
+      <v-col cols="12" md="4">
+        <v-card elevation="2" rounded="lg" class="pa-4 text-center">
+          <v-icon size="36" color="primary">mdi-cart</v-icon>
+          <div class="text-subtitle-2 font-weight-medium mt-2">Total de Vendas</div>
+          <div class="text-h5 font-weight-bold mt-1">{{ sales.length }}</div>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Loading -->
     <v-progress-linear
       v-if="loading"
       indeterminate
@@ -37,16 +38,9 @@
     />
 
     <!-- Tabela de vendas -->
-    <!--
-      Componente responsável por exibir a listagem principal de vendas.
-      Mantido isolado para reutilização e organização do código.
-    -->
     <SalesTable :sales="sales" />
 
     <!-- Alerta de erro -->
-    <!--
-      Exibido em caso de falha ao buscar os dados da API.
-    -->
     <v-alert
       v-if="error"
       type="error"
@@ -56,36 +50,34 @@
       {{ error }}
     </v-alert>
 
+    <!-- Empty state -->
+    <v-alert
+      v-if="!loading && !sales.length && !error"
+      type="info"
+      variant="tonal"
+      class="mt-4"
+    >
+      Nenhuma venda registrada até o momento.
+    </v-alert>
+
   </v-container>
 </template>
 
 <script setup>
-/*
-  Importações da Composition API e dependências da aplicação.
-*/
 import { onMounted, ref } from 'vue'
 import { getSales } from '../api/sales.api'
 import SalesTable from '../components/SalesTable.vue'
 
-/*
-  Estados reativos do dashboard:
-  - sales: lista de vendas
-  - loading: controle de carregamento
-  - error: mensagem de erro
-*/
 const sales = ref([])
 const error = ref(null)
 const loading = ref(true)
 
-/*
-  Carrega as vendas assim que o dashboard é montado.
-*/
 onMounted(async () => {
   try {
     const { data } = await getSales()
     sales.value = data.vendas
   } catch (err) {
-    console.error('Erro:', err)
+    console.error('Erro ao carregar vendas:', err)
     error.value = 'Erro ao carregar vendas'
   } finally {
     loading.value = false
