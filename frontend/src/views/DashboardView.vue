@@ -10,7 +10,6 @@
     Histórico
     </v-btn>
 
-
     <SalesTable :sales="sales" />
 
     <v-alert

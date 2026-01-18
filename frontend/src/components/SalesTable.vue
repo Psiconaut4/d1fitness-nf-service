@@ -36,7 +36,6 @@ defineProps({
             <v-btn
               size="small"
               color="primary"
-              disabled
             >
               Enviar NF
             </v-btn>
