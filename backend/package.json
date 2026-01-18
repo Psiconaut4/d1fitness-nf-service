@@ -4,7 +4,8 @@
   "description": "Sistema de Envio de Nota Fiscal por Email",
   "main": "backend/src/server.js",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "test": "vitest"
   },
   "type": "module",
   "keywords": [],
