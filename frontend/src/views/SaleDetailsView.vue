@@ -107,4 +107,28 @@ onMounted(async () => {
     loading.value = false
   }
 })
+
+async function handleSendDanfe() {
+    if (!email.value) {
+        error.value = 'Por favor, insira um email válido.'
+        return
+    }
+
+    sending.value = true
+    error.value = null
+    success.value = null
+
+    try {
+        await sendDanfeByEmail(sale.value.codigoNotaFiscal, {
+            email: email.value,
+        })
+
+        success.value = 'DANFE enviado com sucesso!'
+        showModal.value = false
+    } catch (err) {
+        error.value = 'Erro ao enviar DANFE. Tente novamente.'
+    } finally {
+        sending.value = false
+    }
+}
 </script>
