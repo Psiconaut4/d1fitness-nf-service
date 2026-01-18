@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "invoiceId": "527671",
+    "email": "santosclarice@example.net",
+    "status": "SUCCESS",
+    "sentAt": "2026-01-18T10:18:49.463Z"
+  },
+  {
+    "invoiceId": "527698",
+    "email": "mendesmaria-cecilia@example.net",
+    "status": "SUCCESS",
+    "sentAt": "2026-01-18T10:19:11.890Z"
+  },
+  {
+    "invoiceId": "527698",
+    "email": "mendesmaria-ceilia@example.net",
+    "status": "SUCCESS",
+    "sentAt": "2026-01-18T10:19:34.528Z"
+  }
+]
