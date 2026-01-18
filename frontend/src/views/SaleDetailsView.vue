@@ -36,11 +36,46 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="primary">
+        <v-btn color="primary" @click="showModal = true">
           Enviar DANFE por email
         </v-btn>
       </v-card-actions>
     </v-card>
+
+    <v-dialog v-model="showModal" max-width="400">
+        <v-card>
+            <v-card-title>
+                Enviar DANFE
+            </v-card-title>
+            <v-card-text>
+                <v-text-field
+                v-model="email"
+                label="Email"
+                type="email"
+                required
+                />
+            </v-card-text>
+
+            <v-card-actions>
+                <v-spacer />
+
+                <v-btn
+                variant="text"
+                @click="showModal = false"
+                >
+                Cancelar
+                </v-btn>
+
+                <v-btn
+                color="primary"
+                :loading="sending"
+                @click="handleSendDanfe"
+                >
+                Enviar
+                </v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -48,9 +83,14 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSaleById } from '../api/sales.api'
+import { sendDanfeByEmail } from '../api/danfe.api'
 
 const route = useRoute()
 
+const showModal = ref(false)
+const email = ref('')
+const sending = ref(false)
+const success = ref(null)
 const sale = ref(null)
 const loading = ref(true)
 const error = ref(null)
@@ -60,6 +100,7 @@ onMounted(async () => {
     const saleId = route.params.saleId
     const { data } = await getSaleById(saleId)
     sale.value = data
+    email.value = data.entregaEmail
   } catch (err) {
     error.value = 'Erro ao carregar detalhes da venda'
   } finally {
