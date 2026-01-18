@@ -1,6 +1,5 @@
 <template>
   <v-container>
-
     <v-btn
       variant="text"
       @click="$router.back()"
@@ -23,33 +22,34 @@
     </v-alert>
 
     <v-card v-if="sale">
-  <v-card-title>
-    Venda #{{ sale.codigoVenda }}
-  </v-card-title>
+      <v-card-title>
+        Venda #{{ sale.codigoVenda }}
+      </v-card-title>
 
-  <v-card-text>
-    <p><strong>Cliente:</strong> {{ sale.clienteNome }}</p>
-    <p><strong>Email:</strong> {{ sale.entregaEmail }}</p>
-    <p><strong>Data:</strong> {{ sale.dataVenda }}</p>
-    <p><strong>Valor Total:</strong> R$ {{ sale.valorTotal }}</p>
-    <p><strong>Status:</strong> {{ sale.descricaoStatus }}</p>
-    <p><strong>Código NF:</strong> {{ sale.codigoNotaFiscal }}</p>
-  </v-card-text>
-</v-card>
+      <v-card-text>
+        <p><strong>Cliente:</strong> {{ sale.clienteNome }}</p>
+        <p><strong>Email:</strong> {{ sale.entregaEmail }}</p>
+        <p><strong>Data:</strong> {{ sale.dataVenda }}</p>
+        <p><strong>Valor Total:</strong> R$ {{ sale.valorTotal }}</p>
+        <p><strong>Status:</strong> {{ sale.descricaoStatus }}</p>
+        <p><strong>Código NF:</strong> {{ sale.codigoNotaFiscal }}</p>
+      </v-card-text>
 
+      <v-card-actions>
+        <v-btn color="primary">
+          Enviar DANFE por email
+        </v-btn>
+      </v-card-actions>
+    </v-card>
   </v-container>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { getSaleById } from '../api/sales.api'
 
-const props = defineProps({
-  saleId: {
-    type: String,
-    required: true,
-  },
-})
+const route = useRoute()
 
 const sale = ref(null)
 const loading = ref(true)
@@ -57,7 +57,8 @@ const error = ref(null)
 
 onMounted(async () => {
   try {
-    const { data } = await getSaleById(props.saleId)
+    const saleId = route.params.saleId
+    const { data } = await getSaleById(saleId)
     sale.value = data
   } catch (err) {
     error.value = 'Erro ao carregar detalhes da venda'
