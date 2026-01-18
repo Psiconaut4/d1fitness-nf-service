@@ -34,5 +34,23 @@
     "email": "gabriel32@example.com",
     "status": "SUCCESS",
     "sentAt": "2026-01-18T11:45:30.746Z"
+  },
+  {
+    "invoiceId": "527671",
+    "email": "santosclarice@example.net",
+    "status": "SUCCESS",
+    "sentAt": "2026-01-18T12:22:17.367Z"
+  },
+  {
+    "invoiceId": "527671",
+    "email": "santosclarice@example.net",
+    "status": "SUCCESS",
+    "sentAt": "2026-01-18T12:43:56.056Z"
+  },
+  {
+    "invoiceId": "527671",
+    "email": "santosclarice@example.net",
+    "status": "SUCCESS",
+    "sentAt": "2026-01-18T12:45:26.052Z"
   }
 ]
