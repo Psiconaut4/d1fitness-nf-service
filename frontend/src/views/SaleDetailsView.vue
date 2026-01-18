@@ -29,6 +29,7 @@
 
   <v-card-text>
     <p><strong>Cliente:</strong> {{ sale.clienteNome }}</p>
+    <p><strong>Email:</strong> {{ sale.entregaEmail }}</p>
     <p><strong>Data:</strong> {{ sale.dataVenda }}</p>
     <p><strong>Valor Total:</strong> R$ {{ sale.valorTotal }}</p>
     <p><strong>Status:</strong> {{ sale.descricaoStatus }}</p>
