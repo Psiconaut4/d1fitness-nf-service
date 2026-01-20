@@ -18,7 +18,7 @@
     </div>
 
     <!-- Card total de vendas -->
-    <v-row dense class="mb-6" align="stretch">
+    <v-row dense class="mb-6" justify="center" align="stretch">
       <v-col cols="12" md="4">
         <v-card elevation="2" rounded="lg" class="pa-4 text-center">
           <v-icon size="36" color="primary">mdi-cart</v-icon>
